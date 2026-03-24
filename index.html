@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathElite — Master Mathematics. Conquer Every Exam.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ─── NAVBAR ─── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-symbol">∑</span>
+        <span class="logo-text">MathElite</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#marathons">Marathons</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a href="#pricing" class="btn-nav">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg">
+      <canvas id="mathCanvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        Trusted by 4,200+ students
+      </div>
+      <h1 class="hero-title reveal">
+        Mathematics,<br />
+        <em>Mastered.</em>
+      </h1>
+      <p class="hero-subtitle reveal">
+        Premium courses and intensive marathons designed to take you from confusion to confidence — in record time.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#courses" class="btn-primary">
+          <span>Explore Courses</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#marathons" class="btn-ghost">View Marathons</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat">
+          <span class="stat-num" data-target="4200">0</span><span class="stat-plus">+</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="98">0</span><span class="stat-plus">%</span>
+          <span class="stat-label">Pass Rate</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="12">0</span><span class="stat-plus"></span>
+          <span class="stat-label">Courses</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── COURSES ─── -->
+  <section class="section" id="courses">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Curriculum</p>
+        <h2 class="section-title">Premium <em>Courses</em></h2>
+        <p class="section-desc">Deep-dive structured programs built around real exam patterns and concept mastery.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="card reveal" data-delay="0">
+          <div class="card-accent" style="--c: #c9a84c"></div>
+          <div class="card-icon">∫</div>
+          <div class="card-tag">Most Popular</div>
+          <h3>Calculus Mastery</h3>
+          <p>Limits, derivatives, integrals, and series — from fundamentals to advanced techniques used in exams.</p>
+          <ul class="card-features">
+            <li>48 hours of video content</li>
+            <li>500+ practice problems</li>
+            <li>Live Q&A sessions</li>
+          </ul>
+          <a href="#pricing" class="card-cta">Enroll Now →</a>
+        </div>
+
+        <div class="card reveal" data-delay="100">
+          <div class="card-accent" style="--c: #8a6fd1"></div>
+          <div class="card-icon">Δ</div>
+          <h3>Linear Algebra</h3>
+          <p>Vectors, matrices, eigenvalues, and transformations — the language of modern mathematics and AI.</p>
+          <ul class="card-features">
+            <li>36 hours of video content</li>
+            <li>380+ practice problems</li>
+            <li>Project assignments</li>
+          </ul>
+          <a href="#pricing" class="card-cta">Enroll Now →</a>
+        </div>
+
+        <div class="card reveal" data-delay="200">
+          <div class="card-accent" style="--c: #4caf8a"></div>
+          <div class="card-icon">π</div>
+          <h3>Probability & Statistics</h3>
+          <p>From distributions and hypothesis testing to Bayesian thinking and real-world data analysis.</p>
+          <ul class="card-features">
+            <li>40 hours of video content</li>
+            <li>420+ practice problems</li>
+            <li>Dataset exercises</li>
+          </ul>
+          <a href="#pricing" class="card-cta">Enroll Now →</a>
+        </div>
+
+        <div class="card reveal" data-delay="300">
+          <div class="card-accent" style="--c: #d16f4c"></div>
+          <div class="card-icon">ℝ</div>
+          <h3>Real Analysis</h3>
+          <p>Rigorous foundations: sequences, continuity, differentiability, and the theory behind calculus.</p>
+          <ul class="card-features">
+            <li>32 hours of video content</li>
+            <li>280+ proof exercises</li>
+            <li>1-on-1 feedback</li>
+          </ul>
+          <a href="#pricing" class="card-cta">Enroll Now →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MARATHONS ─── -->
+  <section class="section section-dark" id="marathons">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Intensive Programs</p>
+        <h2 class="section-title">Math <em>Marathons</em></h2>
+        <p class="section-desc">Compressed, high-intensity bootcamps designed for exam season and rapid skill-building.</p>
+      </div>
+      <div class="marathons-grid">
+
+        <div class="marathon-card reveal" data-delay="0">
+          <div class="marathon-number">01</div>
+          <div class="marathon-info">
+            <div class="marathon-meta">
+              <span class="marathon-duration">⏱ 7 Days</span>
+              <span class="marathon-level level-beginner">Beginner</span>
+            </div>
+            <h3>Algebra Bootcamp</h3>
+            <p>Master algebraic thinking in one week — equations, inequalities, functions, and more.</p>
+            <a href="#pricing" class="marathon-link">Join Marathon →</a>
+          </div>
+          <div class="marathon-glow"></div>
+        </div>
+
+        <div class="marathon-card reveal featured-marathon" data-delay="150">
+          <div class="marathon-badge">🔥 Most Intense</div>
+          <div class="marathon-number">02</div>
+          <div class="marathon-info">
+            <div class="marathon-meta">
+              <span class="marathon-duration">⏱ 14 Days</span>
+              <span class="marathon-level level-advanced">Advanced</span>
+            </div>
+            <h3>Calculus Final Prep</h3>
+            <p>Two-week sprint to exam-ready calculus. 3 sessions daily, problem sets each night, full mock exams.</p>
+            <a href="#pricing" class="marathon-link">Join Marathon →</a>
+          </div>
+          <div class="marathon-glow"></div>
+        </div>
+
+        <div class="marathon-card reveal" data-delay="300">
+          <div class="marathon-number">03</div>
+          <div class="marathon-info">
+            <div class="marathon-meta">
+              <span class="marathon-duration">⏱ 10 Days</span>
+              <span class="marathon-level level-intermediate">Intermediate</span>
+            </div>
+            <h3>Statistics Intensive</h3>
+            <p>Probability, distributions, inference, and regression — everything you need before exams.</p>
+            <a href="#marathon-link" class="marathon-link">Join Marathon →</a>
+          </div>
+          <div class="marathon-glow"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RESULTS ─── -->
+  <section class="section" id="results">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Testimonials</p>
+        <h2 class="section-title">Real <em>Results</em></h2>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testimonial reveal" data-delay="0">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"I failed Calculus twice before finding this. After the 14-day marathon, I passed with a 94. The structure is unlike anything I've tried."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">S</div>
+            <div>
+              <strong>Sara M.</strong>
+              <span>Engineering Student</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial reveal" data-delay="150">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"The Linear Algebra course is absolutely world-class. The explanations are visual, intuitive, and stick. Worth every penny."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">J</div>
+            <div>
+              <strong>James K.</strong>
+              <span>CS Graduate Student</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial reveal" data-delay="300">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"I went from dreading Stats to actually enjoying it. The real-world examples made everything click. My grade went from a C to an A."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div>
+              <strong>Amira T.</strong>
+              <span>Data Science Student</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRICING ─── -->
+  <section class="section section-dark" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-tag">Investment</p>
+        <h2 class="section-title">Choose Your <em>Plan</em></h2>
+        <p class="section-desc">One-time payments. Lifetime access. No subscriptions.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <div class="pricing-card reveal" data-delay="0">
+          <div class="pricing-name">Single Course</div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-num">49</span>
+          </div>
+          <p class="pricing-desc">Full access to one course of your choice, forever.</p>
+          <ul class="pricing-features">
+            <li>✓ Full video curriculum</li>
+            <li>✓ Practice problem sets</li>
+            <li>✓ Community access</li>
+            <li>✓ Lifetime updates</li>
+          </ul>
+          <a href="#" class="btn-pricing">Get Started</a>
+        </div>
+
+        <div class="pricing-card pricing-featured reveal" data-delay="150">
+          <div class="pricing-popular">Most Popular</div>
+          <div class="pricing-name">Marathon Bundle</div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-num">129</span>
+          </div>
+          <p class="pricing-desc">Any marathon + one course. The fastest path to results.</p>
+          <ul class="pricing-features">
+            <li>✓ 1 Marathon of your choice</li>
+            <li>✓ 1 Full course included</li>
+            <li>✓ Live Q&A sessions</li>
+            <li>✓ Private community</li>
+            <li>✓ Certificate of completion</li>
+          </ul>
+          <a href="#" class="btn-pricing btn-pricing-featured">Enroll Now</a>
+        </div>
+
+        <div class="pricing-card reveal" data-delay="300">
+          <div class="pricing-name">All Access</div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-num">249</span>
+          </div>
+          <p class="pricing-desc">Every course, every marathon. Total mastery.</p>
+          <ul class="pricing-features">
+            <li>✓ All 12 courses</li>
+            <li>✓ All marathons</li>
+            <li>✓ 1-on-1 tutoring sessions</li>
+            <li>✓ Priority support</li>
+            <li>✓ Early access to new content</li>
+          </ul>
+          <a href="#" class="btn-pricing">Get Everything</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA STRIP ─── -->
+  <section class="cta-section reveal">
+    <div class="cta-inner">
+      <h2>Ready to transform your<br /><em>relationship with math?</em></h2>
+      <a href="#pricing" class="btn-primary btn-large">
+        <span>Start Today</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="#" class="logo">
+        <span class="logo-symbol">∑</span>
+        <span class="logo-text">MathElite</span>
+      </a>
+      <p class="footer-copy">© 2026 MathElite. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
