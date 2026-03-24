@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math With Elad — Understand Math Without Stress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-sym">∫x²</span>
+        <span class="logo-name">Math <em>With</em> <b>Elad</b></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#tips">Tips &amp; Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#courses" class="btn-teal">Get Started</a>
+      <button class="burger" id="burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#hero">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#tips">Tips &amp; Resources</a>
+      <a href="#contact">Contact</a>
+      <a href="#courses" class="btn-teal">Get Started</a>
+    </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Understand Math<br /><span class="accent">Without Stress</span></h1>
+        <ul class="checks">
+          <li>Prep for exams with confidence</li>
+          <li>Clear explanations that work</li>
+        </ul>
+        <div class="hero-actions">
+          <a href="#courses" class="btn-teal btn-lg">Join Our Courses</a>
+          <a href="#about" class="btn-ghost">
+            <span class="play-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            Watch a Free Lesson
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="photo-box">
+          <img src="https://levelupmath.co.il/wp-content/uploads/2024/06/eilon-transparent-2.webp" alt="Elad – Math Instructor" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+
+      <div class="about-left reveal">
+        <p class="eyebrow">About Me</p>
+        <div class="about-logo">
+          <span class="logo-sym sm">∫x²</span>
+          <span class="logo-name sm">Math <em>With</em> <b>Elad</b></span>
+        </div>
+        <p class="about-body">
+          I'm Elad, and I'll help you understand math like never before.
+          From exam prep to personalized tips, I'll get you feeling confident
+          about math — whatever your level.
+        </p>
+        <a href="#courses" class="btn-teal">
+          <span class="play-btn sm">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          Join Our Courses
+        </a>
+      </div>
+
+      <div class="about-right reveal">
+        <div class="about-card">
+          <div class="about-card-top">
+            <div class="about-card-title">
+              <svg class="cap" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+              <strong>Bagrut prep courses</strong>
+            </div>
+            <ul class="checks dark">
+              <li>Step-by-step courses to ace your exams with confidence</li>
+              <li>Intensive marathons</li>
+              <li>Clear explanations in Hebrew</li>
+              <li>Practical tips for every level</li>
+            </ul>
+          </div>
+          <div class="about-card-img">
+            <img src="https://levelupmath.co.il/wp-content/uploads/2024/06/eilon-transparent-2.webp" alt="Elad" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── COURSES ── -->
+  <section class="courses" id="courses">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>Get Ready for Exams</h2>
+        <p>Courses and programs built for real results — from Bagrut prep to private tutoring.</p>
+      </div>
+      <div class="cards-row">
+
+        <div class="course-card reveal" data-delay="0">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+          </div>
+          <h3>Bagrut Prep<br />Courses</h3>
+          <p>Step-by-step courses to ace your exams with confidence.</p>
+          <a href="#contact" class="btn-teal btn-sm">Explore Courses</a>
+        </div>
+
+        <div class="course-card reveal" data-delay="100">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <h3>Intensive<br />Marathons</h3>
+          <p>Recorded marathons to boost your math skills for exams.</p>
+          <a href="#contact" class="btn-teal btn-sm">Learn More</a>
+        </div>
+
+        <div class="course-card reveal" data-delay="200">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <h3>Private<br />Lessons</h3>
+          <p>Tailored lessons to help you master any topic easily.</p>
+          <a href="#contact" class="btn-teal btn-sm">Contact Me</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── METHOD ── -->
+  <section class="method" id="tips">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>What Makes the Method Special</h2>
+        <p>
+          The approach isn't just about solving problems — it's built on deep understanding.
+          Every topic is taught in a structured way so it adapts to any question.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>Students Say</h2>
+      </div>
+      <div class="reviews-row">
+
+        <div class="review-card reveal" data-delay="0">
+          <p>
+            <span class="qq">«</span>
+            The explanations are clear and structured — I finally understood things I'd been
+            confused about for years. Got a 94 on my Bagrut.
+            <span class="qq">»</span>
+          </p>
+          <div class="reviewer">
+            <div class="av">S</div>
+            <div><strong>Sara M.</strong><span>Bagrut Student</span></div>
+          </div>
+        </div>
+
+        <div class="review-card reveal" data-delay="150">
+          <p>
+            <span class="qq">«</span>
+            Systematic approach helped me finally understand and solve every type
+            of problem. Went from failing to a passing grade with an A.
+            <span class="qq">»</span>
+          </p>
+          <div class="reviewer">
+            <div class="av">J</div>
+            <div><strong>James K.</strong><span>University Student</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BOTTOM CTA ── -->
+  <section class="bottom-cta" id="contact">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>Bagrut Prep Courses</h2>
+        <p>Comprehensive recorded courses, <strong>marathons and tutorials</strong> focused on the exam.</p>
+        <a href="#courses" class="btn-teal btn-lg" style="margin-top:24px;display:inline-flex;">View Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-sym">∫x²</span>
+          <span class="logo-name">Math <em>With</em> <b>Elad</b></span>
+        </a>
+        <p>Clear math lessons, smarter studying.</p>
+        <div class="socials">
+          <a href="#" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#hero">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#tips">Tips &amp; Resources</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:contact@mathwithelad.com">contact@mathwithelad.com</a>
+        <a href="#">Tel Aviv, Israel</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Math With Elad. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
