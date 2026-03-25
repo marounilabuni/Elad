@@ -1,3 +1,15 @@
+/* ACTIVE NAV LINK */
+(function () {
+  const path = decodeURIComponent(window.location.pathname);
+  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
+    const href = (a.getAttribute('href') || '').split('#')[0];
+    if (!href) return;
+    if (path.endsWith('/' + href) || (href === 'index.html' && (path.endsWith('/') || path.endsWith('/hebrew')))) {
+      a.classList.add('active');
+    }
+  });
+})();
+
 /* NAVBAR SCROLL */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {

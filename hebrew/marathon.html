@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מרתונים — מתמטיקה עם אלעד</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-sym">∫e<sup>-x²</sup>dx</span>
+        <span class="logo-name">מתמטיקה <em>עם</em> <b>אלעד</b></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">בית</a>
+        <a href="about.html">אודותי</a>
+        <a href="categories.html">קורסים</a>
+        <a href="marathon.html" class="active">מרתונים</a>
+        <a href="reviews.html">ביקורות</a>
+      </nav>
+      <a href="categories.html" class="btn-teal">לצפייה בקורסים</a>
+      <button class="burger" id="burger" aria-label="פתח תפריט">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html">בית</a>
+      <a href="about.html">אודותי</a>
+      <a href="categories.html">קורסים</a>
+      <a href="marathon.html" class="active">מרתונים</a>
+      <a href="reviews.html">ביקורות</a>
+      <a href="categories.html" class="btn-teal">לצפייה בקורסים</a>
+    </div>
+  </header>
+
+  <!-- ── PAGE HERO ── -->
+  <section class="page-hero">
+    <p class="eyebrow">לוח מרתונים 2026</p>
+    <h1>מרתונים אינטנסיביים</h1>
+    <p>שבועות ממוקדים של לימוד עמוק לקראת הבגרות — תרגולים יומיים ומבחנים מדומים.</p>
+  </section>
+
+  <!-- ── CALENDAR ── -->
+  <section class="cal-section">
+    <div class="container">
+      <div class="cal-wrapper" id="calWrapper">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="calPrev">&#8249;</button>
+          <span class="cal-month-title" id="calTitle"></span>
+          <button class="cal-nav-btn" id="calNext">&#8250;</button>
+        </div>
+        <div class="cal-grid-wrap" id="calSingle"></div>
+        <div class="cal-detail" id="calDetail">
+          <div class="cal-detail-inner" id="calDetailInner"></div>
+        </div>
+        <div class="cal-schedule" id="calSchedule"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── CTA ── -->
+  <section class="bottom-cta">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>רוצה מידע על מרתון ספציפי?</h2>
+        <p>כתוב לי ואחזיר אליך עם כל הפרטים.</p>
+        <a href="mailto:contact@mathwithelad.com" class="btn-teal btn-lg" style="margin-top:24px;display:inline-flex;">צור קשר</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-sym">∫e<sup>-x²</sup>dx</span>
+          <span class="logo-name">מתמטיקה <em>עם</em> <b>אלעד</b></span>
+        </a>
+        <p>הסברים ברורים. לימוד חכם יותר.</p>
+        <div class="socials">
+          <a href="#" aria-label="אימייל">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="#" aria-label="אינסטגרם">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>קישורים מהירים</h4>
+        <a href="index.html">בית</a>
+        <a href="about.html">אודותי</a>
+        <a href="categories.html">קורסים</a>
+        <a href="marathon.html" class="active">מרתונים</a>
+        <a href="reviews.html">ביקורות</a>
+      </div>
+      <div class="footer-col">
+        <h4>צור קשר</h4>
+        <a href="mailto:contact@mathwithelad.com">contact@mathwithelad.com</a>
+        <a href="#">תל אביב, ישראל</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 מתמטיקה עם אלעד. כל הזכויות שמורות.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="admin-store.js"></script>
+  <script>
+    /* ── CALENDAR ── */
+    const MONTH_NAMES = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+    const DAY_HEADERS = ['א','ב','ג','ד','ה','ו','ש'];
+    const todayStr    = new Date().toISOString().slice(0, 10);
+
+    /* map date string → array of marathons */
+    const eventMap = {};
+    getMarathons().forEach(m => {
+      const dateKey = m.startDateTime.slice(0, 10);
+      if (!eventMap[dateKey]) eventMap[dateKey] = [];
+      eventMap[dateKey].push(m);
+    });
+
+    function fmtTime(dt) {
+      return dt.slice(11, 16); /* HH:MM */
+    }
+    function fmtDuration(mins) {
+      const h = Math.floor(mins / 60), m = mins % 60;
+      return m ? `${h}:${String(m).padStart(2,'0')} שעות` : `${h} שעות`;
+    }
+
+    function buildMonth(year, month) {
+      const firstDay    = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevMonth   = month === 0 ? 11 : month - 1;
+      const prevYear    = month === 0 ? year - 1 : year;
+      const prevDays    = new Date(prevYear, prevMonth + 1, 0).getDate();
+      const nextMonth   = month === 11 ? 0 : month + 1;
+      const nextYear    = month === 11 ? year + 1 : year;
+
+      function dayCell(y, mo, d, isOther) {
+        const key    = `${y}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const events = eventMap[key] || [];
+        const todayCls = (!isOther && key === todayStr) ? ' today' : '';
+        const otherCls = isOther ? ' other-month' : '';
+        const visibleEvts = events.slice(0, 2);
+        const evtHtml  = visibleEvts.map(ev =>
+          `<div class="cal-event" style="background:${ev.color}" data-id="${ev.id}">
+             <span class="cal-event-icon">${ev.icon}</span>
+             <span class="cal-event-title">${ev.title}</span>
+           </div>`
+        ).join('');
+        const countBadge = events.length > 2
+          ? `<span class="cal-day-count">${events.length}</span>` : '';
+        return `<div class="cal-day${todayCls}${otherCls}${events.length ? ' has-event' : ''}" data-date="${key}">
+          <div class="cal-day-header"><span class="cal-day-num">${d}</span>${countBadge}</div>${evtHtml}
+        </div>`;
+      }
+
+      let html = `<div class="cal-headers">`;
+      DAY_HEADERS.forEach(d => { html += `<span>${d}</span>`; });
+      html += `</div><div class="cal-grid">`;
+
+      for (let i = 0; i < firstDay; i++)
+        html += dayCell(prevYear, prevMonth, prevDays - firstDay + 1 + i, true);
+
+      for (let d = 1; d <= daysInMonth; d++)
+        html += dayCell(year, month, d, false);
+
+      const trailing = Math.ceil((firstDay + daysInMonth) / 7) * 7 - firstDay - daysInMonth;
+      for (let d = 1; d <= trailing; d++)
+        html += dayCell(nextYear, nextMonth, d, true);
+
+      html += `</div>`;
+      return html;
+    }
+
+    const calSingle      = document.getElementById('calSingle');
+    const calWidget      = document.getElementById('calWrapper');
+    const calTitle       = document.getElementById('calTitle');
+    const calDetail      = document.getElementById('calDetail');
+    const calDetailInner = document.getElementById('calDetailInner');
+    const now = new Date();
+    let curYear = now.getFullYear(), curMonth = now.getMonth();
+    let selectedId = null;
+
+    function renderCalendar() {
+      calTitle.textContent = MONTH_NAMES[curMonth] + ' ' + curYear;
+      calSingle.innerHTML  = `<div class="cal-body">${buildMonth(curYear, curMonth)}</div>`;
+      /* click day cell → show all marathons for that day */
+      calSingle.querySelectorAll('.cal-day.has-event').forEach(el => {
+        el.addEventListener('click', e => {
+          if (e.target.closest('.cal-event')) return; /* pill handles itself */
+          openDayDetail(el.dataset.date);
+        });
+      });
+      /* click pill → show only that marathon */
+      calSingle.querySelectorAll('.cal-event').forEach(el => {
+        el.addEventListener('click', e => {
+          e.stopPropagation();
+          openDetail(el.dataset.id);
+        });
+      });
+      /* close panel when switching month */
+      closeDetail();
+    }
+
+    function marathonCardHtml(m) {
+      const spotsUsed   = m.totalSpots - m.spotsLeft;
+      const spotPct     = Math.round((spotsUsed / m.totalSpots) * 100);
+      const barColor    = m.spotsLeft <= 5 ? '#ef4444' : m.color;
+      const dateFmt     = new Date(m.startDateTime).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' });
+      const course      = getCourses().find(c => c.id === m.courseId);
+      const courseLabel = course ? course.title : '';
+      const tags        = m.topics.map(t => `<span class="cal-detail-tag">${t}</span>`).join('');
+      return `<div class="cal-detail-card">
+        <div class="cal-detail-left">
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+            <span class="level-badge ${m.level}">${m.levelLabel}</span>
+            <span class="cat-badge ${m.category}">${m.categoryLabel}</span>
+          </div>
+          <h3><span style="font-style:italic;color:${m.color};margin-inline-end:6px">${m.icon}</span>${m.title}</h3>
+          <p>${m.description}</p>
+          <div class="cal-detail-tags">${tags}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:.82rem;color:var(--muted)">
+            <span>📅 ${dateFmt}</span>
+            <span>🕘 ${fmtTime(m.startDateTime)}</span>
+            <span>⏱ ${fmtDuration(m.duration)}</span>
+            ${courseLabel ? `<span>📖 ${courseLabel}</span>` : ''}
+          </div>
+        </div>
+        <div class="cal-detail-right">
+          <div class="cal-detail-spots">${m.spotsLeft} מקומות פנויים מתוך ${m.totalSpots}</div>
+          <div class="cal-detail-bar-wrap">
+            <div class="cal-detail-bar" style="width:${spotPct}%;background:${barColor}"></div>
+          </div>
+          <a href="mailto:contact@mathwithelad.com" class="btn-teal" style="width:100%;justify-content:center;display:flex;margin-top:12px">
+            להרשמה
+          </a>
+        </div>
+      </div>`;
+    }
+
+    function showDetailPanel(key, html) {
+      if (selectedId === key) { closeDetail(); return; }
+      selectedId = key;
+      calDetailInner.innerHTML = html;
+      calWidget.classList.add('panel-open');
+      calDetail.classList.add('open');
+      setTimeout(() => calDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
+    }
+
+    function openDetail(id) {
+      const m = getMarathons().find(x => x.id === id);
+      showDetailPanel(id, marathonCardHtml(m));
+    }
+
+    function openDayDetail(dateKey) {
+      const marathons = eventMap[dateKey] || [];
+      if (!marathons.length) return;
+      showDetailPanel(dateKey, marathons.map(marathonCardHtml).join(''));
+    }
+
+    function closeDetail() {
+      calDetail.classList.remove('open');
+      calWidget.classList.remove('panel-open');
+      selectedId = null;
+    }
+
+    /* ── MOBILE SCHEDULE VIEW ── */
+    const scheduleEl = document.getElementById('calSchedule');
+    const DAY_NAMES  = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+
+    document.getElementById('calPrev').addEventListener('click', () => {
+      if (--curMonth < 0) { curMonth = 11; curYear--; }
+      renderCalendar();
+      buildSchedule();
+    });
+    document.getElementById('calNext').addEventListener('click', () => {
+      if (++curMonth > 11) { curMonth = 0; curYear++; }
+      renderCalendar();
+      buildSchedule();
+    });
+
+    renderCalendar();
+
+    function buildSchedule() {
+      const moPrefix  = `${curYear}-${String(curMonth + 1).padStart(2, '0')}`;
+      const marathons = getMarathons()
+        .filter(m => m.startDateTime.startsWith(moPrefix))
+        .sort((a, b) => a.startDateTime.localeCompare(b.startDateTime));
+
+      if (!marathons.length) {
+        scheduleEl.innerHTML = `<div class="sch-empty">אין מרתונים החודש</div>`;
+        return;
+      }
+
+      /* group by date */
+      const byDate = {};
+      marathons.forEach(m => {
+        const day = m.startDateTime.slice(0, 10);
+        if (!byDate[day]) byDate[day] = [];
+        byDate[day].push(m);
+      });
+
+      let html = '<div class="sch-group">';
+      Object.keys(byDate).sort().forEach(dateKey => {
+        const d       = new Date(dateKey + 'T12:00:00');
+        const dayNum  = d.getDate();
+        const dayName = DAY_NAMES[d.getDay()];
+        const isToday = dateKey === todayStr;
+
+        const eventsHtml = byDate[dateKey].map(m => {
+          const startMs  = new Date(m.startDateTime).getTime();
+          const endTime  = new Date(startMs + m.duration * 60000).toTimeString().slice(0, 5);
+          const spotsLow = m.spotsLeft <= 5;
+          return `<div class="sch-event-wrap">
+            <div class="sch-event" data-id="${m.id}">
+              <span class="sch-dot" style="background:${m.color}"></span>
+              <span class="sch-time">${fmtTime(m.startDateTime)} – ${endTime}</span>
+              <span class="sch-title">${m.title}</span>
+              <span class="sch-spots${spotsLow ? ' low' : ''}">${m.spotsLeft} מקומות</span>
+            </div>
+            <div class="sch-event-detail" id="scd-${m.id}"></div>
+          </div>`;
+        }).join('');
+
+        html += `<div class="sch-row">
+          <div class="sch-date-col${isToday ? ' today' : ''}">
+            <span class="sch-date-num">${dayNum}</span>
+            <span class="sch-date-day">${dayName}</span>
+          </div>
+          <div class="sch-events-col">${eventsHtml}</div>
+        </div>`;
+      });
+
+      html += '</div>';
+      scheduleEl.innerHTML = html;
+
+      /* click handlers */
+      scheduleEl.querySelectorAll('.sch-event').forEach(eventEl => {
+        eventEl.addEventListener('click', () => {
+          const id       = eventEl.dataset.id;
+          const detailEl = document.getElementById('scd-' + id);
+          const isOpen   = detailEl.classList.contains('open');
+          /* close all */
+          scheduleEl.querySelectorAll('.sch-event-detail.open').forEach(d => { d.classList.remove('open'); d.innerHTML = ''; });
+          scheduleEl.querySelectorAll('.sch-event.active').forEach(e => e.classList.remove('active'));
+          if (!isOpen) {
+            const m = getMarathons().find(x => x.id === id);
+            detailEl.innerHTML = marathonCardHtml(m);
+            detailEl.classList.add('open');
+            eventEl.classList.add('active');
+            setTimeout(() => detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
+          }
+        });
+      });
+    }
+
+    buildSchedule();
+
+    /* ── REVEAL ── */
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>

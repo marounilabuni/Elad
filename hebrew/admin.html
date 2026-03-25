@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>פאנל ניהול — מתמטיקה עם אלעד</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #19b8cc; --teal-dk: #0e7490;
+      --navy: #1b3a6b;
+      --text: #1a2332; --sub: #4a5568; --muted: #94a3b8;
+      --border: #e2e8f0; --gray: #f8fafc; --white: #ffffff;
+      --red: #ef4444; --green: #10b981;
+    }
+    body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: var(--text); min-height: 100vh; }
+
+    /* ── HEADER ── */
+    .adm-header {
+      background: var(--navy); color: #fff; height: 60px;
+      padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.2);
+    }
+    .adm-header-left { display: flex; align-items: center; gap: 12px; }
+    .adm-header h1 { font-size: 1rem; font-weight: 800; }
+    .adm-demo-badge {
+      background: rgba(25,184,204,.25); color: var(--teal); border: 1px solid rgba(25,184,204,.4);
+      font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; letter-spacing: .04em;
+    }
+    .adm-back { color: rgba(255,255,255,.65); font-size: .82rem; text-decoration: none; transition: color .15s; }
+    .adm-back:hover { color: var(--teal); }
+
+    /* ── BODY ── */
+    .adm-body { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── TABS ── */
+    .adm-tabs { display: flex; gap: 4px; margin-bottom: 28px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 5px; width: fit-content; }
+    .adm-tab {
+      padding: 8px 20px; border: none; background: none; cursor: pointer;
+      font-size: .88rem; font-weight: 600; color: var(--sub); border-radius: 8px;
+      transition: background .15s, color .15s; font-family: inherit;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .adm-tab.active { background: var(--navy); color: #fff; }
+    .adm-tab .tc {
+      font-size: .68rem; font-weight: 700; padding: 1px 7px; border-radius: 99px;
+      background: var(--border); color: var(--muted);
+    }
+    .adm-tab.active .tc { background: rgba(255,255,255,.2); color: #fff; }
+
+    /* ── PANEL ── */
+    .adm-panel { display: none; }
+    .adm-panel.active { display: block; }
+    .adm-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .adm-panel-head h2 { font-size: 1.05rem; font-weight: 800; }
+
+    /* ── TABLE ── */
+    .tbl-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--gray); padding: 11px 16px; text-align: right;
+      font-size: .72rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .05em; border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: .86rem; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #fafbfc; }
+    .cell-title { font-weight: 600; }
+    .cell-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+    .rv-snippet { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--sub); font-size: .82rem; }
+
+    /* ── ICON CELL ── */
+    .ico { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-style: italic; color: #fff; font-weight: 700; flex-shrink: 0; }
+
+    /* ── BADGES ── */
+    .bdg { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+    .bdg.bagrut       { background: rgba(25,184,204,.12); color: #0e7490; }
+    .bdg.mechina      { background: rgba(124,58,237,.1);  color: #6d28d9; }
+    .bdg.sibuv        { background: rgba(217,119,6,.1);   color: #b45309; }
+    .bdg.beginner     { background: rgba(16,185,129,.1);  color: #059669; }
+    .bdg.intermediate { background: rgba(245,158,11,.1);  color: #b45309; }
+    .bdg.advanced     { background: rgba(239,68,68,.1);   color: #dc2626; }
+
+    /* ── STARS ── */
+    .stars { color: #f59e0b; }
+    .stars .empty { color: #e2e8f0; }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: filter .15s; }
+    .btn:hover { filter: brightness(.9); }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-ghost   { background: transparent; border: 1.5px solid var(--border); color: var(--sub); }
+    .btn-danger  { background: var(--red); color: #fff; }
+    .btn-sm      { padding: 5px 12px; font-size: .78rem; border-radius: 7px; }
+    .btn-edit    { background: rgba(25,184,204,.1);  color: var(--teal-dk); }
+    .btn-del     { background: rgba(239,68,68,.1);   color: var(--red); }
+
+    /* ── EMPTY STATE ── */
+    .empty { padding: 48px; text-align: center; color: var(--muted); font-size: .9rem; }
+
+    /* ── MODAL ── */
+    .overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45);
+      z-index: 200; align-items: flex-start; justify-content: center;
+      padding: 40px 20px; overflow-y: auto;
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 16px; width: 100%; max-width: 680px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.22); margin: auto;
+    }
+    .modal-head {
+      padding: 22px 28px 18px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-head h3 { font-size: 1.05rem; font-weight: 800; }
+    .modal-close { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--muted); line-height: 1; padding: 2px 6px; }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 24px 28px; }
+    .modal-foot { padding: 16px 28px 22px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* ── FORM ── */
+    .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .ff { display: flex; flex-direction: column; gap: 5px; }
+    .ff.full { grid-column: 1 / -1; }
+    .ff label { font-size: .78rem; font-weight: 600; color: var(--sub); }
+    .ff input, .ff select, .ff textarea {
+      padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: .87rem; font-family: inherit; color: var(--text);
+      outline: none; background: var(--white); transition: border-color .15s;
+      height: 44px;
+    }
+    .ff textarea { height: auto; min-height: 76px; }
+    .ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--teal); }
+    .ff textarea { resize: vertical; min-height: 76px; }
+    .ff input[type="color"] { height: 42px; padding: 3px 6px; cursor: pointer; }
+    .ff .hint { font-size: .71rem; color: var(--muted); }
+
+    /* ── CHIP INPUT ── */
+    .chip-input {
+      display: flex; flex-direction: column; gap: 8px;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 8px 10px; cursor: text;
+      transition: border-color .15s;
+    }
+    .chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip-input:focus-within { border-color: var(--teal); }
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(25,184,204,.12); color: var(--teal-dk);
+      border-radius: 6px; padding: 3px 8px;
+      font-size: .78rem; font-weight: 600; white-space: nowrap;
+    }
+    .chip-x {
+      background: none; border: none; cursor: pointer; color: var(--teal-dk);
+      font-size: .9rem; line-height: 1; padding: 0 1px; opacity: .55;
+      font-family: inherit;
+    }
+    .chip-x:hover { opacity: 1; }
+    .chip-field {
+      border: none; outline: none; font-family: inherit;
+      font-size: .87rem; background: transparent; flex: 1; min-width: 130px;
+      color: var(--text);
+    }
+
+    /* ── COURSE PICKER ── */
+    .course-picker { position: relative; }
+    .cp-trigger {
+      border: 1.5px solid var(--border); border-radius: 8px; height: 44px;
+      padding: 0 12px; display: flex; align-items: center; gap: 9px;
+      cursor: pointer; background: var(--white); transition: border-color .15s;
+      font-size: .87rem; color: var(--text);
+    }
+    .cp-trigger:hover, .course-picker.open .cp-trigger { border-color: var(--teal); }
+    .cp-trigger .placeholder { color: var(--muted); }
+    .cp-arrow { margin-inline-start: auto; color: var(--muted); font-size: .75rem; }
+    .cp-dropdown {
+      display: none; position: absolute; inset-inline: 0; top: calc(100% + 4px);
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.13); z-index: 60; overflow: hidden;
+    }
+    .course-picker.open .cp-dropdown { display: block; }
+    .cp-search {
+      width: 100%; padding: 10px 12px; border: none; border-bottom: 1px solid var(--border);
+      outline: none; font-family: inherit; font-size: .87rem; background: var(--gray);
+    }
+    .cp-list { max-height: 220px; overflow-y: auto; }
+    .cp-opt {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      cursor: pointer; transition: background .12s;
+    }
+    .cp-opt:hover { background: var(--gray); }
+    .cp-opt.active { background: rgba(25,184,204,.08); }
+    .cp-opt-ico { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .95rem; font-style: italic; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .cp-opt-title { font-size: .86rem; font-weight: 600; }
+    .cp-opt-sub { font-size: .73rem; color: var(--muted); margin-top: 1px; }
+    .cp-empty { padding: 14px; text-align: center; font-size: .82rem; color: var(--muted); }
+
+    /* ── CONFIRM ── */
+    .confirm-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      z-index: 300; align-items: center; justify-content: center; padding: 20px;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-box {
+      background: var(--white); border-radius: 14px; padding: 32px 28px;
+      max-width: 360px; width: 100%; text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,.2);
+    }
+    .confirm-box .confirm-icon { font-size: 2rem; margin-bottom: 10px; }
+    .confirm-box h4 { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+    .confirm-box p  { font-size: .88rem; color: var(--sub); margin-bottom: 24px; line-height: 1.6; }
+    .confirm-btns { display: flex; gap: 10px; justify-content: center; }
+
+    @media (max-width: 680px) {
+      .adm-body { padding: 20px 16px; }
+      .fg { grid-template-columns: 1fr; }
+      .ff.full { grid-column: 1; }
+      th:nth-child(n+4), td:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="adm-header">
+    <div class="adm-header-left">
+      <h1>פאנל ניהול</h1>
+      <span class="adm-demo-badge">DEMO</span>
+    </div>
+    <a class="adm-back" href="index.html">חזור לאתר ←</a>
+  </header>
+
+  <div class="adm-body">
+
+    <!-- Tabs -->
+    <div class="adm-tabs">
+      <button class="adm-tab active" data-tab="courses">קורסים <span class="tc" id="tc-courses">0</span></button>
+      <button class="adm-tab" data-tab="marathons">מרתונים <span class="tc" id="tc-marathons">0</span></button>
+      <button class="adm-tab" data-tab="reviews">ביקורות <span class="tc" id="tc-reviews">0</span></button>
+    </div>
+
+    <!-- ── COURSES ── -->
+    <div class="adm-panel active" id="panel-courses">
+      <div class="adm-panel-head">
+        <h2>קורסים</h2>
+        <button class="btn btn-primary" onclick="openAdd('course')">+ הוסף קורס</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>קורס</th><th>קטגוריה</th><th>רמה</th><th>מחיר</th><th>שעות</th><th>פעולות</th>
+          </tr></thead>
+          <tbody id="tb-courses"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── MARATHONS ── -->
+    <div class="adm-panel" id="panel-marathons">
+      <div class="adm-panel-head">
+        <h2>מרתונים</h2>
+        <button class="btn btn-primary" onclick="openAdd('marathon')">+ הוסף מרתון</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>מרתון</th><th>קורס</th><th>תאריך ושעה</th><th>משך</th><th>מקומות</th><th>פעולות</th>
+          </tr></thead>
+          <tbody id="tb-marathons"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── REVIEWS ── -->
+    <div class="adm-panel" id="panel-reviews">
+      <div class="adm-panel-head">
+        <h2>ביקורות</h2>
+        <button class="btn btn-primary" onclick="openAdd('review')">+ הוסף ביקורת</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>שם</th><th>דירוג</th><th>תאריך</th><th>ביקורת</th><th>פעולות</th>
+          </tr></thead>
+          <tbody id="tb-reviews"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /adm-body -->
+
+  <!-- ── EDIT / ADD MODAL ── -->
+  <div class="overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle">עריכה</h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" onclick="closeModal()">ביטול</button>
+        <button class="btn btn-primary" onclick="saveModal()">שמור</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DELETE CONFIRM ── -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-icon">🗑️</div>
+      <h4>מחיקה</h4>
+      <p id="confirmMsg">האם למחוק פריט זה?</p>
+      <div class="confirm-btns">
+        <button class="btn btn-ghost" onclick="closeConfirm()">ביטול</button>
+        <button class="btn btn-danger" onclick="doDelete()">מחק</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="reviews-store.js"></script>
+  <script src="admin-store.js"></script>
+  <script>
+
+    /* ══ TABS ══ */
+    document.querySelectorAll('.adm-tab').forEach(btn =>
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      })
+    );
+
+    /* ══ HELPERS ══ */
+    const CAT_LABELS   = { bagrut: 'בגרות', mechina: 'מכינה טכניון', sibuv: 'בחינת סיבוג' };
+    const LEVEL_LABELS = { beginner: 'מתחיל', intermediate: 'בינוני', advanced: 'מתקדם' };
+    const CAT_OPTS     = Object.entries(CAT_LABELS).map(([v,l]) => `<option value="${v}">${l}</option>`).join('');
+    const LEVEL_OPTS   = Object.entries(LEVEL_LABELS).map(([v,l]) => `<option value="${v}">${l}</option>`).join('');
+
+    function starsHtml(n) {
+      return `<span class="stars">${'★'.repeat(n)}<span class="empty">${'★'.repeat(5-n)}</span></span>`;
+    }
+    function dateFmt(str) {
+      return new Date(str).toLocaleDateString('he-IL', { day:'numeric', month:'short', year:'numeric' });
+    }
+    function durStr(mins) {
+      const h = Math.floor(mins/60), m = mins%60;
+      return m ? `${h}:${String(m).padStart(2,'0')} שע׳` : `${h} שע׳`;
+    }
+    function gv(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function lines(id) { return gv(id).split('\n').map(s => s.trim()).filter(Boolean); }
+    function sel(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.value = val; }
+    function esc(s) { return String(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+    /* ══ RENDER ══ */
+    function renderAll() { renderCourses(); renderMarathons(); renderReviews(); }
+
+    function renderCourses() {
+      const list = getCourses();
+      document.getElementById('tc-courses').textContent = list.length;
+      const tb = document.getElementById('tb-courses');
+      if (!list.length) { tb.innerHTML = `<tr><td colspan="6"><div class="empty">אין קורסים</div></td></tr>`; return; }
+      tb.innerHTML = list.map(c => `
+        <tr>
+          <td><div style="display:flex;align-items:center;gap:11px">
+            <div class="ico" style="background:${c.color}">${c.icon}</div>
+            <div><div class="cell-title">${esc(c.title)}</div><div class="cell-sub">${esc(c.subtitle||'')}</div></div>
+          </div></td>
+          <td><span class="bdg ${c.category}">${c.categoryLabel}</span></td>
+          <td><span class="bdg ${c.level}">${c.levelLabel}</span></td>
+          <td>₪${c.price} <span style="color:var(--muted);text-decoration:line-through;font-size:.78rem">₪${c.originalPrice}</span></td>
+          <td>${(c.includes||{}).videoHours||'—'} שע׳</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-sm btn-edit" onclick="openEdit('course','${c.id}')">עריכה</button>
+            <button class="btn btn-sm btn-del"  onclick="askDel('course','${c.id}','${esc(c.title)}')">מחק</button>
+          </div></td>
+        </tr>`).join('');
+    }
+
+    function renderMarathons() {
+      const list    = getMarathons();
+      const courses = getCourses();
+      document.getElementById('tc-marathons').textContent = list.length;
+      const tb = document.getElementById('tb-marathons');
+      if (!list.length) { tb.innerHTML = `<tr><td colspan="6"><div class="empty">אין מרתונים</div></td></tr>`; return; }
+      tb.innerHTML = list.map(m => {
+        const cName = (courses.find(c => c.id === m.courseId)||{}).title || '—';
+        return `
+        <tr>
+          <td><div style="display:flex;align-items:center;gap:11px">
+            <div class="ico" style="background:${m.color}">${m.icon}</div>
+            <div><div class="cell-title">${esc(m.title)}</div>
+              <div class="cell-sub"><span class="bdg ${m.level}">${m.levelLabel}</span></div>
+            </div>
+          </div></td>
+          <td><div style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.82rem;color:var(--sub)">${esc(cName)}</div></td>
+          <td>${dateFmt(m.startDateTime)}<div class="cell-sub">${m.startDateTime.slice(11,16)}</div></td>
+          <td>${durStr(m.duration)}</td>
+          <td>${m.spotsLeft}/${m.totalSpots}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-sm btn-edit" onclick="openEdit('marathon','${m.id}')">עריכה</button>
+            <button class="btn btn-sm btn-del"  onclick="askDel('marathon','${m.id}','${esc(m.title)}')">מחק</button>
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderReviews() {
+      const list = getReviews();
+      document.getElementById('tc-reviews').textContent = list.length;
+      const tb = document.getElementById('tb-reviews');
+      if (!list.length) { tb.innerHTML = `<tr><td colspan="5"><div class="empty">אין ביקורות</div></td></tr>`; return; }
+      tb.innerHTML = list.map(r => `
+        <tr>
+          <td><div style="display:flex;align-items:center;gap:10px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">${esc(r.name.charAt(0))}</div>
+            <span class="cell-title">${esc(r.name)}</span>
+          </div></td>
+          <td>${starsHtml(r.rating)}</td>
+          <td>${r.createdAt.split('-').reverse().join('/')}</td>
+          <td><div class="rv-snippet">${esc(r.text)}</div></td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-sm btn-edit" onclick="openEdit('review','${r.id}')">עריכה</button>
+            <button class="btn btn-sm btn-del"  onclick="askDel('review','${r.id}','ביקורת של ${esc(r.name)}')">מחק</button>
+          </div></td>
+        </tr>`).join('');
+    }
+
+    /* ══ FORMS ══ */
+    function courseForm(c) { c = c||{}; return `<div class="fg">
+      <div class="ff full"><label>שם הקורס *</label><input id="f_title" value="${esc(c.title||'')}" /></div>
+      <div class="ff full"><label>כותרת משנה</label><input id="f_subtitle" value="${esc(c.subtitle||'')}" /></div>
+      <div class="ff full"><label>תיאור</label><textarea id="f_description">${esc(c.description||'')}</textarea></div>
+      <div class="ff"><label>קטגוריה</label><select id="f_category">${CAT_OPTS}</select></div>
+      <div class="ff"><label>רמה</label><select id="f_level">${LEVEL_OPTS}</select></div>
+      <div class="ff"><label>מחיר (₪)</label><input id="f_price" type="number" value="${c.price||''}" /></div>
+      <div class="ff"><label>מחיר מקורי (₪)</label><input id="f_originalPrice" type="number" value="${c.originalPrice||''}" /></div>
+      <div class="ff"><label>אייקון</label><input id="f_icon" value="${esc(c.icon||'∫')}" /></div>
+      <div class="ff"><label>צבע</label><input id="f_color" type="color" value="${c.color||'#19b8cc'}" /></div>
+      <div class="ff"><label>תג (badge)</label><input id="f_badge" value="${esc(c.badge||'')}" placeholder="הכי פופולרי" /></div>
+      <div class="ff full"><label>נושאים</label><div class="chip-input" id="ci_topics"><input class="chip-field" placeholder="הקלד נושא ולחץ Enter…" /></div></div>
+      <div class="ff full" style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px"><label style="font-size:.8rem;font-weight:700;color:var(--text)">מה כולל הקורס</label></div>
+      <div class="ff"><label>שעות וידאו</label><input id="f_inc_videoHours" placeholder="למשל: 48" /></div>
+      <div class="ff"><label>תרגילים פתורים</label><input id="f_inc_exercises" placeholder="למשל: 500+" /></div>
+      <div class="ff"><label>מבחנים מדומים</label><input id="f_inc_mockExams" placeholder="למשל: 3" /></div>
+      <div class="ff"><label>גישה לכל החיים</label><input id="f_inc_lifetimeAccess" placeholder="כן / השאר ריק להסתרה" /></div>
+      <div class="ff"><label>קבוצת תמיכה פרטית</label><input id="f_inc_supportGroup" placeholder="כן / השאר ריק להסתרה" /></div>
+    </div>`; }
+
+    function marathonForm(m) { m = m||{};
+      return `<div class="fg">
+        <div class="ff full"><label>שם המרתון *</label><input id="f_title" value="${esc(m.title||'')}" /></div>
+        <div class="ff full"><label>קורס משויך</label>
+          <div class="course-picker" id="cp_wrap">
+            <div class="cp-trigger" id="cp_trigger"><span class="placeholder">בחר קורס…</span><span class="cp-arrow">▾</span></div>
+            <div class="cp-dropdown">
+              <input class="cp-search" placeholder="חפש קורס…" />
+              <div class="cp-list" id="cp_list"></div>
+            </div>
+          </div>
+          <input type="hidden" id="f_courseId" />
+        </div>
+        <div class="ff full"><label>תיאור</label><textarea id="f_description">${esc(m.description||'')}</textarea></div>
+        <div class="ff"><label>תאריך</label><input id="f_date" type="date" dir="ltr" value="${m.startDateTime ? m.startDateTime.slice(0,10) : ''}" /></div>
+        <div class="ff"><label>שעת התחלה</label><input id="f_time" type="time" dir="ltr" value="${m.startDateTime ? m.startDateTime.slice(11,16) : ''}" /></div>
+        <div class="ff"><label>משך (דקות)</label><input id="f_duration" type="number" value="${m.duration||240}" /></div>
+        <div class="ff"><label>קטגוריה</label><select id="f_category">${CAT_OPTS}</select></div>
+        <div class="ff"><label>רמה</label><select id="f_level">${LEVEL_OPTS}</select></div>
+        <div class="ff"><label>סה״כ מקומות</label><input id="f_totalSpots" type="number" value="${m.totalSpots||30}" /></div>
+        <div class="ff"><label>מקומות פנויים</label><input id="f_spotsLeft" type="number" value="${m.spotsLeft!=null?m.spotsLeft:30}" /></div>
+        <div class="ff"><label>אייקון</label><input id="f_icon" value="${esc(m.icon||'∫')}" /></div>
+        <div class="ff"><label>צבע</label><input id="f_color" type="color" value="${m.color||'#19b8cc'}" /></div>
+        <div class="ff full"><label>נושאים</label><div class="chip-input" id="ci_topics"><input class="chip-field" placeholder="הקלד נושא ולחץ Enter…" /></div></div>
+      </div>`;
+    }
+
+    function reviewForm(r) { r = r||{};
+      const starOpts = [1,2,3,4,5].map(n => `<option value="${n}"${r.rating==n?' selected':''}>${n} ★</option>`).join('');
+      return `<div class="fg">
+        <div class="ff"><label>שם *</label><input id="f_name" value="${esc(r.name||'')}" /></div>
+        <div class="ff"><label>דירוג</label><select id="f_rating">${starOpts}</select></div>
+        <div class="ff full"><label>טקסט ביקורת *</label><textarea id="f_text">${esc(r.text||'')}</textarea></div>
+        <div class="ff"><label>תאריך</label><input id="f_createdAt" type="date" value="${r.createdAt||new Date().toISOString().slice(0,10)}" /></div>
+      </div>`;
+    }
+
+    /* ══ COURSE PICKER ENGINE ══ */
+    function initCoursePicker(selectedId) {
+      const wrap    = document.getElementById('cp_wrap');
+      const trigger = document.getElementById('cp_trigger');
+      const search  = wrap.querySelector('.cp-search');
+      const list    = document.getElementById('cp_list');
+      const hidden  = document.getElementById('f_courseId');
+      if (!wrap) return;
+      let cur = selectedId || '';
+
+      function renderTrigger() {
+        const c = getCourses().find(c => c.id === cur);
+        trigger.innerHTML = c
+          ? `<div class="cp-opt-ico" style="background:${c.color};width:26px;height:26px;border-radius:7px;font-size:.85rem">${c.icon}</div><span>${c.title}</span><span class="cp-arrow">▾</span>`
+          : `<span class="placeholder">בחר קורס…</span><span class="cp-arrow">▾</span>`;
+        hidden.value = cur;
+      }
+
+      function renderList() {
+        const q = search.value.trim();
+        const all = [{ id:'', icon:'', color:'', title:'— ללא —', categoryLabel:'', levelLabel:'' }, ...getCourses()];
+        const filtered = q ? all.filter(c => c.title.includes(q) || c.categoryLabel.includes(q)) : all;
+        if (!filtered.length) { list.innerHTML = '<div class="cp-empty">לא נמצאו קורסים</div>'; return; }
+        list.innerHTML = filtered.map(c => `
+          <div class="cp-opt${cur===c.id?' active':''}" data-id="${c.id}">
+            ${c.id ? `<div class="cp-opt-ico" style="background:${c.color}">${c.icon}</div>` : '<div style="width:30px"></div>'}
+            <div>
+              <div class="cp-opt-title">${c.title}</div>
+              ${c.categoryLabel ? `<div class="cp-opt-sub">${c.categoryLabel} · ${c.levelLabel}</div>` : ''}
+            </div>
+          </div>`).join('');
+        list.querySelectorAll('.cp-opt').forEach(opt =>
+          opt.addEventListener('click', () => {
+            cur = opt.dataset.id; renderTrigger(); renderList();
+            wrap.classList.remove('open');
+          })
+        );
+      }
+
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        wrap.classList.toggle('open');
+        if (wrap.classList.contains('open')) { search.value=''; renderList(); search.focus(); }
+      });
+      search.addEventListener('input', renderList);
+      document.addEventListener('click', () => wrap.classList.remove('open'));
+
+      renderTrigger(); renderList();
+    }
+
+    /* ══ CHIP INPUT ENGINE ══ */
+    const _chips = {};
+
+    function initChips(id, initial) {
+      _chips[id] = initial.filter(v => v && v.trim()).map(v => v.trim());
+      _renderChips(id);
+      const container = document.getElementById(id);
+      if (!container) return;
+      const inp = container.querySelector('.chip-field');
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          const val = inp.value.replace(/,/g, '').trim();
+          if (val && !_chips[id].includes(val)) {
+            _chips[id].push(val);
+            _renderChips(id);
+          } else if (val && _chips[id].includes(val)) {
+            inp.value = ''; /* silently clear duplicate */
+          }
+          inp.value = '';
+        }
+        if (e.key === 'Backspace' && inp.value === '' && _chips[id].length) {
+          _chips[id].pop();
+          _renderChips(id);
+        }
+      });
+      container.addEventListener('click', () => inp.focus());
+    }
+
+    function _renderChips(id) {
+      const container = document.getElementById(id);
+      if (!container) return;
+      let list = container.querySelector('.chip-list');
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'chip-list';
+        container.insertBefore(list, container.firstChild);
+      }
+      list.innerHTML = '';
+      _chips[id].forEach((val, i) => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.innerHTML = `${esc(val)} <button class="chip-x" type="button">×</button>`;
+        chip.querySelector('.chip-x').addEventListener('click', e => {
+          e.stopPropagation();
+          _chips[id].splice(i, 1);
+          _renderChips(id);
+        });
+        list.appendChild(chip);
+      });
+      list.style.display = _chips[id].length ? '' : 'none';
+    }
+
+    function getChips(id) { return (_chips[id] || []).slice(); }
+
+    /* ══ MODAL STATE ══ */
+    let mType = null, mEditId = null;
+
+    function openAdd(type) {
+      mType = type; mEditId = null;
+      document.getElementById('modalTitle').textContent = { course:'הוסף קורס', marathon:'הוסף מרתון', review:'הוסף ביקורת' }[type];
+      document.getElementById('modalBody').innerHTML = { course: courseForm(), marathon: marathonForm(), review: reviewForm() }[type];
+      document.getElementById('modalOverlay').classList.add('open');
+      if (type === 'course')   { initChips('ci_topics', []); initChips('ci_includes', []); }
+      if (type === 'marathon') { initChips('ci_topics', []); initCoursePicker(''); }
+    }
+
+    function openEdit(type, id) {
+      mType = type; mEditId = id;
+      let item, html;
+      if (type === 'course')   { item = getCourses().find(c => c.id === id);   html = courseForm(item);   document.getElementById('modalTitle').textContent = 'עריכת קורס'; }
+      if (type === 'marathon') { item = getMarathons().find(m => m.id === id); html = marathonForm(item); document.getElementById('modalTitle').textContent = 'עריכת מרתון'; }
+      if (type === 'review')   { item = getReviews().find(r => r.id === id);   html = reviewForm(item);   document.getElementById('modalTitle').textContent = 'עריכת ביקורת'; }
+      document.getElementById('modalBody').innerHTML = html;
+      document.getElementById('modalOverlay').classList.add('open');
+      if (item) { sel('f_category', item.category); sel('f_level', item.level); }
+      if (type === 'course') {
+        initChips('ci_topics', item.topics||[]);
+        const inc = item.includes || {};
+        sel('f_inc_videoHours',     inc.videoHours     || '');
+        sel('f_inc_exercises',      inc.exercises      || '');
+        sel('f_inc_mockExams',      inc.mockExams      || '');
+        sel('f_inc_lifetimeAccess', inc.lifetimeAccess || '');
+        sel('f_inc_supportGroup',   inc.supportGroup   || '');
+      }
+      if (type === 'marathon') { initChips('ci_topics', item.topics||[]); initCoursePicker(item.courseId||''); }
+      if (type === 'marathon') { initChips('ci_topics', item.topics||[]); }
+    }
+
+    function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); mType = null; mEditId = null; }
+
+    function saveModal() {
+      if (mType === 'course')   saveCourse();
+      if (mType === 'marathon') saveMarathon();
+      if (mType === 'review')   saveReview();
+    }
+
+    function saveCourse() {
+      if (!gv('f_title')) { alert('שם הקורס הוא שדה חובה'); return; }
+      const cat = gv('f_category'), lvl = gv('f_level');
+      const data = {
+        title: gv('f_title'), subtitle: gv('f_subtitle'), description: gv('f_description'),
+        category: cat, categoryLabel: CAT_LABELS[cat],
+        level: lvl, levelLabel: LEVEL_LABELS[lvl],
+        price: +gv('f_price'), originalPrice: +gv('f_originalPrice'),
+        icon: gv('f_icon'), color: gv('f_color'), badge: gv('f_badge'),
+        topics: getChips('ci_topics'),
+        includes: {
+          videoHours:     gv('f_inc_videoHours'),
+          exercises:      gv('f_inc_exercises'),
+          mockExams:      gv('f_inc_mockExams'),
+          lifetimeAccess: gv('f_inc_lifetimeAccess'),
+          supportGroup:   gv('f_inc_supportGroup'),
+        },
+      };
+      mEditId ? updateCourse(mEditId, data) : addCourse(data);
+      closeModal(); renderAll();
+    }
+
+    function saveMarathon() {
+      if (!gv('f_title')) { alert('שם המרתון הוא שדה חובה'); return; }
+      const cat = gv('f_category'), lvl = gv('f_level');
+      const data = {
+        title: gv('f_title'), description: gv('f_description'), courseId: gv('f_courseId'),
+        startDateTime: gv('f_date') + 'T' + (gv('f_time') || '00:00'), duration: +gv('f_duration'),
+        category: cat, categoryLabel: CAT_LABELS[cat],
+        level: lvl, levelLabel: LEVEL_LABELS[lvl],
+        totalSpots: +gv('f_totalSpots'), spotsLeft: +gv('f_spotsLeft'),
+        icon: gv('f_icon'), color: gv('f_color'), topics: getChips('ci_topics'),
+      };
+      mEditId ? updateMarathon(mEditId, data) : addMarathon(data);
+      closeModal(); renderAll();
+    }
+
+    function saveReview() {
+      if (!gv('f_name') || !gv('f_text')) { alert('שם וביקורת הם שדות חובה'); return; }
+      const data = { name: gv('f_name'), rating: +gv('f_rating'), text: gv('f_text'), createdAt: gv('f_createdAt') };
+      mEditId ? updateReview(mEditId, data) : addReviewAdmin(data);
+      closeModal(); renderAll();
+    }
+
+    /* ══ DELETE ══ */
+    let dType = null, dId = null;
+    function askDel(type, id, label) {
+      dType = type; dId = id;
+      document.getElementById('confirmMsg').textContent = `למחוק את "${label}"?`;
+      document.getElementById('confirmOverlay').classList.add('open');
+    }
+    function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('open'); dType = null; dId = null; }
+    function doDelete() {
+      if (dType === 'course')   deleteCourse(dId);
+      if (dType === 'marathon') deleteMarathon(dId);
+      if (dType === 'review')   deleteReview(dId);
+      closeConfirm(); renderAll();
+    }
+
+    /* close on backdrop click */
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+    document.getElementById('confirmOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeConfirm(); });
+
+    /* ══ INIT ══ */
+    renderAll();
+  </script>
+</body>
+</html>

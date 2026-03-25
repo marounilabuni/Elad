@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>קורסים — מתמטיקה עם אלעד</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-sym">∫e<sup>-x²</sup>dx</span>
+        <span class="logo-name">מתמטיקה <em>עם</em> <b>אלעד</b></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">בית</a>
+        <a href="about.html">אודותי</a>
+        <a href="categories.html" class="active">קורסים</a>
+        <a href="marathon.html">מרתונים</a>
+        <a href="reviews.html">ביקורות</a>
+      </nav>
+      <a href="categories.html" class="btn-teal">לצפייה בקורסים</a>
+      <button class="burger" id="burger" aria-label="פתח תפריט">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html">בית</a>
+      <a href="about.html">אודותי</a>
+      <a href="categories.html" class="active">קורסים</a>
+      <a href="marathon.html">מרתונים</a>
+      <a href="reviews.html">ביקורות</a>
+      <a href="categories.html" class="btn-teal">לצפייה בקורסים</a>
+    </div>
+  </header>
+
+  <!-- ── PAGE HERO ── -->
+  <section class="page-hero">
+    <p class="eyebrow">קורסי הכנה לבגרות</p>
+    <h1>בחר את הקורס שלך</h1>
+    <p>קורסים מוקלטים מקיפים — לומדים בקצב שלך, מקבלים תוצאות אמיתיות.</p>
+  </section>
+
+  <!-- ── COURSES GRID ── -->
+  <section class="page-section">
+    <div class="container">
+
+      <!-- Filter -->
+      <div class="filter-row" id="filterRow">
+        <button class="filter-btn active" data-filter="all">כל הקורסים</button>
+        <button class="filter-btn" data-filter="bagrut">בגרות</button>
+        <button class="filter-btn" data-filter="mechina">מכינה טכניון</button>
+        <button class="filter-btn" data-filter="sibuv">בחינת סיבוג</button>
+      </div>
+
+      <!-- Cards (JS-rendered) -->
+      <div class="cf-grid" id="courseGrid"></div>
+
+    </div>
+  </section>
+
+  <!-- ── BOTTOM CTA ── -->
+  <section class="bottom-cta">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <h2>לא בטוח איזה קורס מתאים לך?</h2>
+        <p>כתוב לי ואעזור לך לבחור את המסלול הנכון.</p>
+        <a href="mailto:contact@mathwithelad.com" class="btn-teal btn-lg" style="margin-top:24px;display:inline-flex;">שלח הודעה</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-sym">∫e<sup>-x²</sup>dx</span>
+          <span class="logo-name">מתמטיקה <em>עם</em> <b>אלעד</b></span>
+        </a>
+        <p>הסברים ברורים. לימוד חכם יותר.</p>
+        <div class="socials">
+          <a href="#" aria-label="אימייל">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="#" aria-label="אינסטגרם">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>קישורים מהירים</h4>
+        <a href="index.html">בית</a>
+        <a href="about.html">אודותי</a>
+        <a href="categories.html" class="active">קורסים</a>
+        <a href="marathon.html">מרתונים</a>
+        <a href="reviews.html">ביקורות</a>
+      </div>
+      <div class="footer-col">
+        <h4>צור קשר</h4>
+        <a href="mailto:contact@mathwithelad.com">contact@mathwithelad.com</a>
+        <a href="#">תל אביב, ישראל</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 מתמטיקה עם אלעד. כל הזכויות שמורות.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="admin-store.js"></script>
+  <script>
+    const grid   = document.getElementById('courseGrid');
+    const filters = document.querySelectorAll('.filter-btn');
+    const urlParam = new URLSearchParams(window.location.search).get('category');
+    let activeFilter = urlParam || 'all';
+
+    function renderCourses() {
+      const list = activeFilter === 'all'
+        ? getCourses()
+        : getCourses().filter(c => c.category === activeFilter);
+
+      grid.innerHTML = list.map(c => {
+        const featured = c.badge ? 'featured' : '';
+        const badge    = c.badge
+          ? `<span class="cf-badge">${c.badge}</span>` : '';
+        const inc = c.includes || {};
+        const topics = c.topics.map(t => `<li>${t}</li>`).join('');
+        const discount = Math.round((1 - c.price / c.originalPrice) * 100);
+        const metaItems = [
+          { val: inc.videoHours,  label: 'שעות וידאו' },
+          { val: inc.exercises,   label: 'תרגילים פתורים' },
+          { val: inc.mockExams,   label: 'מבחנים מדומים' },
+        ].filter(m => m.val).map(m =>
+          `<div class="cf-meta-item"><strong>${m.val}</strong><span>${m.label}</span></div>`
+        ).join('');
+        const extras = [
+          { val: inc.lifetimeAccess, label: 'גישה לכל החיים' },
+          { val: inc.supportGroup,   label: 'קבוצת תמיכה פרטית' },
+        ].filter(e => e.val).map(e =>
+          `<span class="cf-extra">✓ ${e.label}</span>`
+        ).join('');
+
+        return `
+          <div class="cf-card ${featured} reveal">
+            <div class="cf-card-head">
+              ${badge}
+              <div class="cf-icon" style="background:${c.color}">${c.icon}</div>
+              <div class="cf-head-text">
+                <h3>${c.title}</h3>
+                <p>${c.subtitle}</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+                  <span class="cat-badge ${c.category}">
+                    <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5l7 7-5 5-7-7V2zm3.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+                    ${c.categoryLabel}
+                  </span>
+                  <span class="level-badge ${c.level}">${c.levelLabel}</span>
+                </div>
+              </div>
+            </div>
+            <div class="cf-divider"></div>
+            <div class="cf-body">
+              ${metaItems ? `<div class="cf-meta">${metaItems}</div>` : ''}
+              <ul class="cf-topics">${topics}</ul>
+              ${extras ? `<div class="cf-extras">${extras}</div>` : ''}
+            </div>
+            <div class="cf-footer">
+              <div class="price-row">
+                <span class="price-orig">₪${c.originalPrice}</span>
+                <span class="price-now">₪${c.price} <small>חד-פעמי</small></span>
+              </div>
+              <a href="mailto:contact@mathwithelad.com" class="btn-teal">
+                להרשמה
+                ${discount ? `<span style="font-size:.7rem;opacity:.8;font-weight:500">−${discount}%</span>` : ''}
+              </a>
+            </div>
+          </div>`;
+      }).join('');
+
+      /* re-observe new .reveal elements */
+      document.querySelectorAll('.cf-card.reveal').forEach(el => revealObserver.observe(el));
+    }
+
+    /* Intersection observer for .reveal */
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+
+    /* sync active button with initial filter */
+    filters.forEach(btn => {
+      if (btn.dataset.filter === activeFilter) btn.classList.add('active');
+      else btn.classList.remove('active');
+      btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderCourses();
+      });
+    });
+
+    renderCourses();
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
