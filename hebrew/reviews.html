@@ -171,6 +171,16 @@
       spStars.forEach(st => st.classList.remove('hover'));
     });
 
+    /* ── XSS ESCAPE ── */
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     /* ── RENDER STATS ── */
     function renderStats() {
       const { avg, count, dist } = getStats();
@@ -216,14 +226,14 @@
 
         return `<div class="rv-card reveal">
           <div class="rv-header">
-            <div class="rv-av">${initial}</div>
+            <div class="rv-av">${esc(initial)}</div>
             <div class="rv-info">
-              <strong>${r.name}</strong>
+              <strong>${esc(r.name)}</strong>
             </div>
             <div class="rv-stars">${stars}</div>
           </div>
-          <p class="rv-text">${r.text}</p>
-          <span class="rv-date">${date}</span>
+          <p class="rv-text">${esc(r.text)}</p>
+          <span class="rv-date">${esc(date)}</span>
         </div>`;
       }).join('');
 

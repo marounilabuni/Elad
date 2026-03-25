@@ -1,10 +1,8 @@
-/* ── REVIEWS STORE — localStorage, no DB ── */
-
-const REVIEWS_KEY = 'elad_reviews_v1';
+/* ── REVIEWS STORE — in-memory only, no localStorage ── */
 
 /* Review model: { id, name, rating(1-5), text, createdAt } */
 
-const SEED_REVIEWS = [
+let _reviews = [
   {
     id: 'r1', name: 'שרה מ.', rating: 5,
     text: 'ההסברים ברורים ומסודרים — לבסוף הבנתי דברים שבלבלו אותי שנים בחשבון 5 יח׳. קיבלתי 94 בבגרות!',
@@ -32,17 +30,9 @@ const SEED_REVIEWS = [
   },
 ];
 
-function getReviews() {
-  const raw = localStorage.getItem(REVIEWS_KEY);
-  if (!raw) {
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(SEED_REVIEWS));
-    return SEED_REVIEWS.slice();
-  }
-  return JSON.parse(raw);
-}
+function getReviews()  { return _reviews.slice(); }
 
 function addReview({ name, rating, text }) {
-  const reviews = getReviews();
   const review = {
     id: 'r' + Date.now(),
     name: name.trim(),
@@ -50,16 +40,14 @@ function addReview({ name, rating, text }) {
     text: text.trim(),
     createdAt: new Date().toISOString().slice(0, 10),
   };
-  reviews.unshift(review);
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+  _reviews.unshift(review);
   return review;
 }
 
 function getStats() {
-  const reviews = getReviews();
-  if (!reviews.length) return { avg: '0.0', count: 0, dist: [0, 0, 0, 0, 0] };
-  const dist = [0, 0, 0, 0, 0]; /* index 0 = 1★ … index 4 = 5★ */
+  if (!_reviews.length) return { avg: '0.0', count: 0, dist: [0, 0, 0, 0, 0] };
+  const dist = [0, 0, 0, 0, 0];
   let sum = 0;
-  reviews.forEach(r => { sum += r.rating; dist[r.rating - 1]++; });
-  return { avg: (sum / reviews.length).toFixed(1), count: reviews.length, dist };
+  _reviews.forEach(r => { sum += r.rating; dist[r.rating - 1]++; });
+  return { avg: (sum / _reviews.length).toFixed(1), count: _reviews.length, dist };
 }

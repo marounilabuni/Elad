@@ -17,17 +17,10 @@ function updateMarathon(id, data) { _marathons = _marathons.map(m => m.id === id
 function deleteMarathon(id)       { _marathons = _marathons.filter(m => m.id !== id); }
 
 /* ── REVIEWS (admin extras) ── */
-function updateReview(id, data) {
-  const list = getReviews().map(r => r.id === id ? { ...r, ...data } : r);
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(list));
-}
-function deleteReview(id) {
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(getReviews().filter(r => r.id !== id)));
-}
+function updateReview(id, data)  { _reviews = _reviews.map(r => r.id === id ? { ...r, ...data } : r); }
+function deleteReview(id)        { _reviews = _reviews.filter(r => r.id !== id); }
 function addReviewAdmin({ name, rating, text, createdAt }) {
-  const list   = getReviews();
   const review = { id: 'r' + Date.now(), name: name.trim(), rating: Number(rating), text: text.trim(), createdAt };
-  list.unshift(review);
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(list));
+  _reviews.unshift(review);
   return review;
 }
